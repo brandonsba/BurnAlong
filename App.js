@@ -5,30 +5,24 @@ import { Login } from './components/login';
 import { Home } from './components/home';
 import { ListClassesByCategory } from './components/listClassesByCategory';
 import { ShowClass } from './components/showClass';
+import { Splash } from './components/splash';
 
 import { Scene, Router, Actions, Reducer, ActionConst, Tabs, Modal, Drawer, Stack, Lightbox } from "react-native-router-flux";
 
-const TabIcon = ({ selected, title }) => {
-	return (
-		<Text style={{color: selected ? 'red' :'black'}}>{title}</Text>
-	);
+export default class App extends React.Component {
+	render() {
+		return(
+			<Router>
+				<Scene key="root" hideNavBar={true}>
+					<Scene key="splash" component={Splash} timeout={2000} title="BurnAlong" initial />
+					
+					<Scene key="login" component={Login} title="Login" />
+					
+					<Scene key="home" component={Home} title="Home" />
+					<Scene key="listClassesByCategory" component={ListClassesByCategory} title="List Classes by Category" />
+					<Scene key="showClass" component={ShowClass} title="Show Class" />
+				</Scene>
+			</Router>
+		);
+	}
 }
-
-const App = () => (
-  <Router>
-    <Scene key="root">
-      <Scene key="login" component={Login} hideNavBar={true} initial />
-      <Scene key="home" component={Home} title="Categories" />
-      <Scene key="listClassesByCategory" component={ListClassesByCategory} title="Classes" />
-      <Scene key="showClass" component={ShowClass} title="Class" />
-      
-        <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#FFFFFF' }}>
-        	<Scene key="home" title="Home" icon={TabIcon}>
-        		<Scene key="home" component={Home} title="Home"></Scene>
-        	</Scene>
-       </Scene>
-    </Scene>
-  </Router>
-);
-
-export default App;
